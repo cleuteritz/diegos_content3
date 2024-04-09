@@ -25,7 +25,6 @@
  <div class="column">
     <img src="images/bg_image.jpeg" alt="Diego Garcia Smoldering into the Camera" width="100%">
  </div>
- <h1>About Me</h1>
 
  <?php
 include 'about_me_info.php';
