@@ -1,8 +1,3 @@
-<?php
-// Include the file containing the Person class and its instantiation
-include 'about_me_info.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -32,8 +27,9 @@ include 'about_me_info.php';
  </div>
  <h1>About Me</h1>
 
- <!-- Text about the subject -->
-<p><?php echo $person->getBio(); ?></p>
+ <?php
+include 'about_me_info.php';
+?>
 
  <!-- Weather information placeholder -->
  <div id="weatherContainer"></div>
