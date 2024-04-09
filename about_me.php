@@ -1,5 +1,6 @@
 <?php
-include 'includes/about_me_info.php';
+// Include the file containing the Person class and its instantiation
+include 'about_me_info.php';
 ?>
 
 <!DOCTYPE html>
