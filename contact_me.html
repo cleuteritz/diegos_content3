@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <title>Contact Me</title>
-    <link href="CSS/contact_me.css" type="text/css" rel="stylesheet">
+    <link href="css/contact_me.css" type="text/css" rel="stylesheet">
 </head>
 <body>
     <h1>Feedback? Questions? Concerns?</h1>
     <p>Interested in working with me? I would love to hear from you.</p>
 
-    <form id="contactForm" action="form_handler.php" method="post">
+    <form id="contactForm" action="form_handler.php" method="post">The CSS file may not be loading into the website because the path specified in the link tag's href attribute is incorrect. Please make sure that the path to the CSS file is correct and matches the actual location of the file on your server.
         <input type="text" id="fullName" name="fullName" placeholder="Your name"><br>
         <input type="number" id="age" name="age" placeholder="Your age"><br>
         <label for="gender">Gender:</label>
@@ -17,6 +17,8 @@
             <option value="Male">Male</option>
             <option value="Female">Female</option>
         </select><br>
+        <textarea id="message" name="message" placeholder="Write your message here"></textarea><br> <!-- Add this line -->
+        
         <input type="submit" name="submit" value="Send message">
     </form>
 
