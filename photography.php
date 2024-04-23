@@ -1,12 +1,50 @@
-<?php // FILEPATH: /Applications/MAMP/htdocs/diegos_content3/photography.php 
+<?php 
 
-$sql = "SELECT * 
-	 		FROM picture;";
-     $picture = $pdo->query($sql);->fetchAll();
+    // Include the database connection script
+    require 'database-connection.php';
+
+
+    /*
+       TO-DO: Retrieve the value of the 'picture___sheet1__1_' parameter from the URL query string
+              (i.e., ../horoscope.php?picture___sheet1__1_=Pisces). Make sure to call this variable $picture___sheet1__1_!
+
+              Write SQL query to retrieve ALL info on the zodiac sign based on picture___sheet1__1_ parameter from the URL query string
+              Execute the SQL query using the pdo function and fetch the result
+     */
+
+    $picture___sheet1__1_ = $_GET['picture___sheet1__1_'];
+
+    $sql = "SELECT * 
+            FROM picture___sheet1__1_
+            WHERE name = :picture___sheet1__1_";
+    
+    $picture = pdo($pdo, $sql, ['picture___sheet1__1_' => $picture___sheet1__1_])->fetch();
+    
+    // Check if the cookie 'details_' . $picture___sheet1__1_ is not set
+    if (!isset($_COOKIE['details_' . $picture___sheet1__1_])) {
+
+        // SQL query to select a random horoscope
+        $sql2 = "SELECT * 
+            FROM picture___sheet1__1_
+            ORDER BY RAND() LIMIT 1";
+
+        // Execute the query and fetch the result
+        $details = pdo($pdo, $sql2)->fetch();
+        
+        // Serialize the details and set it as a cookie
+        $serializedDetails = serialize($details);
+        setcookie('details_' . $picture___sheet1__1_, $serializedDetails, time() + 60 * 60 * 24);
+    }
+
+    else 
+    {
+        // If the cookie 'details_' . $picture___sheet1__1_ is set, unserialize it to retrieve the details
+        $details = unserialize($_COOKIE['details_' . $picture___sheet1__1_]);
+    }
+
 ?>
 
-
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
@@ -31,85 +69,19 @@ $sql = "SELECT *
     </div>
     <!-- ****** END HEADER ****** -->
 
-    <div class="horoscopes-row">
-
-<div class="horoscope">
-    <!-- Create a hyperlink to horoscope.php page with sign as parameter -->
-    <a href="picture.php?sign=<?= $picture[0]['id'] ?>">
-        <!-- Display image of zodiac with its name as alt text -->
-        <img src="<?= $picture[0]['imgSrc'] ?>" alt="<?= $picture[0]['name'] ?>">
-    </a>
-    <!-- Display name of zodiac sign -->
-    <h3><?= $picture[0]['name'] ?></h3>
-    <!-- Display birthday range of zodiac sign -->
-    <p><?= $zodiacs[0]['location'] ?></p>
-</div>
-
-<div class="horoscope">
-    <!-- Create a hyperlink to horoscope.php page with sign as parameter -->
-    <a href="picture.php?sign=<?= $picture[1]['id'] ?>">
-        <!-- Display image of zodiac with its name as alt text -->
-        <img src="<?= $picture[1]['imgSrc'] ?>" alt="<?= $picture[1]['name'] ?>">
-    </a>
-    <!-- Display name of zodiac sign -->
-    <h3><?= $picture[1]['name'] ?></h3>
-    <!-- Display birthday range of zodiac sign -->
-    <p><?= $zodiacs[1]['location'] ?></p>
-</div>
-
-<div class="horoscope">
-    <!-- Create a hyperlink to horoscope.php page with sign as parameter -->
-    <a href="picture.php?sign=<?= $picture[2]['id'] ?>">
-        <!-- Display image of zodiac with its name as alt text -->
-        <img src="<?= $picture[2]['imgSrc'] ?>" alt="<?= $picture[2]['name'] ?>">
-    </a>
-    <!-- Display name of zodiac sign -->
-    <h3><?= $picture[2]['name'] ?></h3>
-    <!-- Display birthday range of zodiac sign -->
-    <p><?= $zodiacs[2]['location'] ?></p>
-</div>
-
-</div>
-
-<div class="horoscopes-row">
-
-<div class="horoscope">
-    <!-- Create a hyperlink to horoscope.php page with sign as parameter -->
-    <a href="picture.php?sign=<?= $picture[3]['id'] ?>">
-        <!-- Display image of zodiac with its name as alt text -->
-        <img src="<?= $picture[3]['imgSrc'] ?>" alt="<?= $picture[3]['name'] ?>">
-    </a>
-    <!-- Display name of zodiac sign -->
-    <h3><?= $picture[3]['name'] ?></h3>
-    <!-- Display birthday range of zodiac sign -->
-    <p><?= $zodiacs[3]['location'] ?></p>
-</div>
-
-<div class="horoscope">
-    <!-- Create a hyperlink to horoscope.php page with sign as parameter -->
-    <a href="picture.php?sign=<?= $picture[4]['id'] ?>">
-        <!-- Display image of zodiac with its name as alt text -->
-        <img src="<?= $picture[4]['imgSrc'] ?>" alt="<?= $picture[4]['name'] ?>">
-    </a>
-    <!-- Display name of zodiac sign -->
-    <h3><?= $picture[4]['name'] ?></h3>
-    <!-- Display birthday range of zodiac sign -->
-    <p><?= $zodiacs[4]['location'] ?></p>
-</div>
-
-<div class="horoscope">
-    <!-- Create a hyperlink to horoscope.php page with sign as parameter -->
-    <a href="picture.php?sign=<?= $picture[5]['id'] ?>">
-        <!-- Display image of zodiac with its name as alt text -->
-        <img src="<?= $picture[5]['imgSrc'] ?>" alt="<?= $picture[5]['name'] ?>">
-    </a>
-    <!-- Display name of zodiac sign -->
-    <h3><?= $picture[5]['name'] ?></h3>
-    <!-- Display birthday range of zodiac sign -->
-    <p><?= $zodiacs[5]['location'] ?></p>
-</div>
-</div>
-
+    <div id="content" class="animate-bottom">
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <img src="<?= $picture['imgSrc'] ?>" alt="<?= $picture['name'] ?>">
+                    <div class="container">
+                        <h2><?= $picture['name'] ?></h2>
+                        <p class="location"><?= $picture['location'] ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <p>Website Author: Connor Leuteritz<br>
         Email: <a href="mailto:cleuteritz@uri.edu" target="_blank">cleuteritz@uri.edu</a><br>
