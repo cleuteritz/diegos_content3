@@ -17,7 +17,7 @@
     <div class="header-right">
         <a href="index.html">Home</a>
         <a class="active" href="about_me.php">About Me</a>
-        <a href="photography.html">Photography</a>
+        <a href="photography.php">Photography</a>
         <a href="contact_me.html">Contact Me</a>
     </div>
  </div>
